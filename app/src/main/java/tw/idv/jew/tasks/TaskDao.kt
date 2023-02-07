@@ -5,12 +5,13 @@ import androidx.room.*
 
 @Dao    //告訴Room這個介面是用來存取資料的
 interface TaskDao {
+    //未使用live data的資料使用suspend將其轉成協同程序（在背景運行，且可暫停）
     @Insert //插入
-    fun insert(task: Task)
+    suspend fun insert(task: Task)
     @Update //修改
-    fun update(task: Task)
+    suspend fun update(task: Task)
     @Delete //刪除
-    fun delete(task: Task)
+    suspend fun delete(task: Task)
 
     //查詢
     @Query("SELECT * FROM task_table WHERE taskId = :key")
