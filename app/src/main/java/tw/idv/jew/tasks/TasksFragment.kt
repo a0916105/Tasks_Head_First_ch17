@@ -28,6 +28,9 @@ class TasksFragment : Fragment() {
         val viewModel = ViewModelProvider(
             this, viewModelFactory).get(TasksViewModel::class.java)
 
+        //設定data binding，讓layout可以用它來使用view model的屬性與方法
+        binding.viewModel = viewModel
+
         return view
     }
 
