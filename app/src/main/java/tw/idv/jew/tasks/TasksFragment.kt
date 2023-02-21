@@ -31,6 +31,9 @@ class TasksFragment : Fragment() {
         //設定data binding，讓layout可以用它來使用view model的屬性與方法
         binding.viewModel = viewModel
 
+        //設定layout的lifecycleOwner，讓它可以回應live data的改變
+        binding.lifecycleOwner = viewLifecycleOwner
+
         return view
     }
 
