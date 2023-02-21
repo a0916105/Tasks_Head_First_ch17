@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="tw.idv.jew.TasksViewModel" />
+            type="tw.idv.jew.tasks.TasksViewModel" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
