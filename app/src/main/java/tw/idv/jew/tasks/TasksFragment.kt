@@ -34,6 +34,10 @@ class TasksFragment : Fragment() {
         //設定layout的lifecycleOwner，讓它可以回應live data的改變
         binding.lifecycleOwner = viewLifecycleOwner
 
+        //將adapter加入tasksList recycler view
+        val adapter = TaskItemAdapter() //建立TaskItemAdapter
+        binding.tasksList.adapter = adapter //將adapter接到recycler view
+
         return view
     }
 
