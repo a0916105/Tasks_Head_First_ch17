@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import tw.idv.jew.tasks.databinding.FragmentTasksBinding
 import androidx.lifecycle.ViewModelProvider
 
@@ -37,6 +38,14 @@ class TasksFragment : Fragment() {
         //將adapter加入tasksList recycler view
         val adapter = TaskItemAdapter() //建立TaskItemAdapter
         binding.tasksList.adapter = adapter //將adapter接到recycler view
+
+        //將資料傳給adapter
+        viewModel.tasks.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                //當工作串列改變時，將它指配給adapter的data屬性
+                adapter.data = it
+            }
+        })
 
         return view
     }
