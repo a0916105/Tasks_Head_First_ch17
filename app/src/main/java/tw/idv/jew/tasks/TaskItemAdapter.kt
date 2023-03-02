@@ -2,7 +2,9 @@ package tw.idv.jew.tasks
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 
 class TaskItemAdapter : RecyclerView.Adapter<TaskItemAdapter.TaskItemViewHolder>() {
@@ -24,21 +26,25 @@ class TaskItemAdapter : RecyclerView.Adapter<TaskItemAdapter.TaskItemViewHolder>
         holder.bind(item)
     }
 
-    class TaskItemViewHolder(val rootView: TextView)
+    class TaskItemViewHolder(val rootView: CardView)
         : RecyclerView.ViewHolder(rootView) {
+        val taskName = rootView.findViewById<TextView>(R.id.task_name)
+        val taskDone = rootView.findViewById<CheckBox>(R.id.task_done)
+
         companion object {
             //建立每一個view holder並充氣它的layout
             fun inflateFrom(parent: ViewGroup): TaskItemViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val view = layoutInflater
-                    .inflate(R.layout.task_item, parent, false) as TextView
+                    .inflate(R.layout.task_item, parent, false) as CardView
                 return TaskItemViewHolder(view)
             }
         }
         //將資料加入view holder的layout
         fun bind(item: Task) {
             //將工作名稱加入layout的根view
-            rootView.text = item.taskName
+            taskName.text = item.taskName
+            taskDone.isChecked = item.taskDone
         }
     }
 }
