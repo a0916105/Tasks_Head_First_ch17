@@ -5,24 +5,16 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-class TaskItemAdapter : RecyclerView.Adapter<TaskItemAdapter.TaskItemViewHolder>() {
-    //加入data屬性與它的setter
-    var data = listOf<Task>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()  //告訴recycler view資料改變了
-        }
-
-    //讓adapter知道資料項目有幾個
-    override fun getItemCount() = data.size
+class TaskItemAdapter : ListAdapter<Task, TaskItemAdapter.TaskItemViewHolder>(TaskDiffItemCallback()) { //為了處理串列並搭配DiffUtil使用，改繼承ListAdapter
     //將layout充氣並回傳view holder，當APP需要建立view holder時會呼叫它。parent是指recycler view
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
             : TaskItemViewHolder = TaskItemViewHolder.inflateFrom(parent)
     //APP需要在view holder裡面顯示資料時會呼叫它
     override fun onBindViewHolder(holder: TaskItemViewHolder, position: Int) {
-        val item = data[position]   //取得需要顯示的項目
+        val item = getItem(position)   //從adapter的backing list取得項目
         holder.bind(item)
     }
 
