@@ -42,8 +42,8 @@ class TasksFragment : Fragment() {
         //將資料傳給adapter
         viewModel.tasks.observe(viewLifecycleOwner, Observer {
             it?.let {
-                //當工作串列改變時，將它指配給adapter的data屬性
-                adapter.data = it
+                //當工作串列改變時，將新資料傳給adapter的backing list
+                adapter.submitList(it)
             }
         })
 
