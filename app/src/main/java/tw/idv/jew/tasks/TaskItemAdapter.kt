@@ -7,14 +7,15 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import tw.idv.jew.tasks.databinding.TaskItemBinding
 
-class TaskItemAdapter : ListAdapter<Task, TaskItemAdapter.TaskItemViewHolder>(TaskDiffItemCallback()) { //為了處理串列並搭配DiffUtil使用，改繼承ListAdapter
+class TaskItemAdapter(val clickListener: (taskId: Long) -> Unit)    //讓TaskItemAdapter接收lambda
+    : ListAdapter<Task, TaskItemAdapter.TaskItemViewHolder>(TaskDiffItemCallback()) { //為了處理串列並搭配DiffUtil使用，改繼承ListAdapter
     //將layout充氣並回傳view holder，當APP需要建立view holder時會呼叫它。parent是指recycler view
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
             : TaskItemViewHolder = TaskItemViewHolder.inflateFrom(parent)
     //APP需要在view holder裡面顯示資料時會呼叫它
     override fun onBindViewHolder(holder: TaskItemViewHolder, position: Int) {
         val item = getItem(position)   //從adapter的backing list取得項目
-        holder.bind(item)
+        holder.bind(item, clickListener)    //將lambda傳給TaskItemViewHolder的bind()方法
     }
 
     class TaskItemViewHolder(val binding: TaskItemBinding)  //為了使用binding類別來充氣layout，所以改成接收binding物件
@@ -30,13 +31,13 @@ class TaskItemAdapter : ListAdapter<Task, TaskItemAdapter.TaskItemViewHolder>(Ta
             }
         }
         //將資料加入view holder的layout
-        fun bind(item: Task) {
+        fun bind(item: Task, clickListener: (taskId: Long) -> Unit) {   //讓bind()方法接收lambda
             //設定layout的data binding變數
             binding.task = item
             //讓項目回應按下的動作
             binding.root.setOnClickListener {
-                //下列只是簡單示範，不建議使用，它只能顯示toast，而且不能在其他地方重複使用
-                Toast.makeText(binding.root.context, "Clicked task ${item.taskId}", Toast.LENGTH_SHORT).show()
+                //在項目被按下時執行lambda
+                clickListener(item.taskId)
             }
         }
     }
