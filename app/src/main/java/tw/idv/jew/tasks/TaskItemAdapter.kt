@@ -2,6 +2,7 @@ package tw.idv.jew.tasks
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import tw.idv.jew.tasks.databinding.TaskItemBinding
@@ -32,6 +33,11 @@ class TaskItemAdapter : ListAdapter<Task, TaskItemAdapter.TaskItemViewHolder>(Ta
         fun bind(item: Task) {
             //設定layout的data binding變數
             binding.task = item
+            //讓項目回應按下的動作
+            binding.root.setOnClickListener {
+                //下列只是簡單示範，不建議使用，它只能顯示toast，而且不能在其他地方重複使用
+                Toast.makeText(binding.root.context, "Clicked task ${item.taskId}", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
