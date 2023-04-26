@@ -39,9 +39,8 @@ class TasksFragment : Fragment() {
         //將adapter加入tasksList recycler view
         //建立adapter
         val adapter = TaskItemAdapter { taskId -> //將lambda傳給adapter
-            //讓Fragment決定何時前往下一個Fragment
-            val action = TasksFragmentDirections.actionTasksFragmentToEditTaskFragment(taskId)
-            this.findNavController().navigate(action)
+            //按下時執行
+            viewModel.onTaskClicked(taskId)
         }
         binding.tasksList.adapter = adapter //將adapter接到recycler view
 
@@ -50,6 +49,15 @@ class TasksFragment : Fragment() {
             it?.let {
                 //當工作串列改變時，將新資料傳給adapter的backing list
                 adapter.submitList(it)
+            }
+        })
+
+        viewModel.navigateToTask.observe(viewLifecycleOwner, Observer { taskId ->
+            taskId?.let {   //這個let區塊只會在taskId不是null時執行
+                val action = TasksFragmentDirections
+                    .actionTasksFragmentToEditTaskFragment(taskId)
+                this.findNavController().navigate(action)
+                viewModel.onTaskNavigated() //將navigateToTask設回null
             }
         })
 

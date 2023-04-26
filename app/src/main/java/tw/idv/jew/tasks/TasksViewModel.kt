@@ -24,10 +24,12 @@ class TasksViewModel(val dao: TaskDao) : ViewModel() {
         }
     }
 
+    //被按後要執行的工作，通常用來傳值
     fun onTaskClicked(taskId: Long) {
         _navigateToTask.value = taskId
     }
 
+    //通常用在工作完成後，自動將值設回預設
     fun onTaskNavigated() {
         _navigateToTask.value = null
     }
