@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import tw.idv.jew.tasks.databinding.FragmentTasksBinding
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import tw.idv.jew.tasks.databinding.FragmentTasksBinding
 
 class TasksFragment : Fragment() {
     private var _binding: FragmentTasksBinding? = null
@@ -39,7 +39,9 @@ class TasksFragment : Fragment() {
         //將adapter加入tasksList recycler view
         //建立adapter
         val adapter = TaskItemAdapter { taskId -> //將lambda傳給adapter
-            Toast.makeText(context, "Clicked task $taskId", Toast.LENGTH_SHORT).show()
+            //讓Fragment決定何時前往下一個Fragment
+            val action = TasksFragmentDirections.actionTasksFragmentToEditTaskFragment(taskId)
+            this.findNavController().navigate(action)
         }
         binding.tasksList.adapter = adapter //將adapter接到recycler view
 
