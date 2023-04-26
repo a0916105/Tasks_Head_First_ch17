@@ -9,8 +9,7 @@
             type="tw.idv.jew.tasks.Task" />
     </data>
 
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -27,7 +26,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:text="@{task.taskName}" />
 
             <CheckBox
                 android:id="@+id/task_done"
@@ -36,7 +36,8 @@
                 android:clickable="false"
                 android:padding="8dp"
                 android:text="Done?"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:checked="@{task.taskDone}" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </layout>
