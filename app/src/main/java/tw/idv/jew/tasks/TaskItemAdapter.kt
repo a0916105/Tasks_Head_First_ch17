@@ -2,7 +2,6 @@ package tw.idv.jew.tasks
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import tw.idv.jew.tasks.databinding.TaskItemBinding
