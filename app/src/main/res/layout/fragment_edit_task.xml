@@ -26,10 +26,10 @@
 
         <CheckBox
             android:id="@+id/task_done"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:checked="@={viewModel.task.taskDone}" />
+            android:checked="@={viewModel.task.taskDone}"
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/update_button"
